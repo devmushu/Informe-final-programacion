@@ -1,7 +1,7 @@
-clientes = {}
-usuarios = {}
-idcliente = 0
-idusuario = 0
+clientes = {} #====> lista vacia
+usuarios = {}  #====> lista vacia x2
+idcliente = 0 #=====> contador id cliente
+idusuario = 0 #=====> Contador idusuario
 
 def menuprincipal(): #===========> FUNCION QUE IMPRIME EL MENU PRINCIPAL
     print("================================")
@@ -218,18 +218,18 @@ def ingresoUsuarios():    #==================> FUNCION PARA REGISTRAR EN MENU IN
     apellidos = input("INGRESE APELLIDOS        : ")
     correo = input(   "INGRESE CORREO           : ")
     print("=======================================")
-    global idusuario
+    global idusuario  #=============> La variable la convierte en globlal para que lo tome el contador de afuera
     idusuario += 1
     codigo = idusuario
     usuario = [codigo,username,clave,nombre,apellidos,correo]
     usuarios[username] = usuario
 
 
-while True:
+while True: #===========> creamos el while del menu y lo mostramos llamando funciones
     menuUsuarios()
-    opUsu = int(input("INGRESE OPCIÓN: "))
+    opUsu = int(input("INGRESE OPCIÓN: "))  #=========> Seleccion de opcion
 
-    if opUsu == 1:
+    if opUsu == 1:  #============> opcion 1 iniciar sesion
         user = input("Ingrese nombre de usuario: ")
         clave = input("Ingrese password: ")
         if usuarios.get(user):
@@ -259,11 +259,11 @@ while True:
                 input("Contraseña incorrecta. Presiona ENTER para volver al Menú de Usuarios.")
         else:
             input("Usuario no registrado. Presiona ENTER para volver al Menú de Usuarios.")
-    elif opUsu == 2:
+    elif opUsu == 2: #=================> opcion crear usuario
         ingresoUsuarios()
-    elif opUsu == 3:
+    elif opUsu == 3: #================> opcion salir
         opSalir = input("¿DESEA SALIR [SI/NO]: ")
         if opSalir.lower() == "si":
             break
-    else:
+    else: #====================> seleccion fuera de rango
         print("Opción Fuera de Rango")
