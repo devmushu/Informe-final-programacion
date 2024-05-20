@@ -1,3 +1,5 @@
+from ejercicio_prueba import *
+
 def menuprincipal(): #===========> FUNCION QUE IMPRIME EL MENU PRINCIPAL
     print("================================")
     print("   M E N Ú  P R I N C I P A L   ")
