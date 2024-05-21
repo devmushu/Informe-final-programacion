@@ -5,9 +5,9 @@ idusuario = 0 #=====> Contador idusuario
 
 def menuprincipal(): #===========> FUNCION QUE IMPRIME EL MENU PRINCIPAL
     print("================================")
-    print("   M E N Ú  P R I N C I P A L   f")
+    print("   M E N Ú  P R I N C I P A L   ")
     print("================================")
-    print("       1.- (C) INGRESAR         x")
+    print("       1.- (C) INGRESAR         ")
     print("       2.- (R) MOSTRAR          ")
     print("       3.- (U) MODIFICAR        ")
     print("       4.- (D) ELIMINAR         ")
@@ -239,7 +239,7 @@ while True: #===========> creamos el while del menu y lo mostramos llamando func
                     print(f"Bienvenido {usuario[3]} {usuario[4]} - {usuario[2]} - id: {usuario[0]}.")
                     input("Presiona ENTRAR para ingresar al Menú Principal.")
                     while True:  # Bucle para el Menú Principal
-                        menuprincipal()ssss
+                        menuprincipal()
                         try: #==========================================> agregamos try para evitar la caida del programa
                             op = int(input("INGRESE OPCIÓN: "))
                             if op == 1:
