@@ -7,7 +7,7 @@ def menuprincipal(): #===========> FUNCION QUE IMPRIME EL MENU PRINCIPAL
     print("================================")
     print("   M E N Ú  P R I N C I P A L   ")
     print("================================")
-    print("       1.- (C) INGRESAR         ")
+    print("       1.- (C) INGRESAR         x")
     print("       2.- (R) MOSTRAR          ")
     print("       3.- (U) MODIFICAR        ")
     print("       4.- (D) ELIMINAR         ")
