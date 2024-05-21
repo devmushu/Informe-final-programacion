@@ -34,7 +34,10 @@ def ingresardatos(): #=========> FUNCION QUE SOLICITA LOS DATOS DEL CLIENTE
     direccion=input("INGRESE DIRECCION : ")
     fono=input("INGRESE TELEFONO : ")
     correo=input("INGRESE CORREO : ")
+#     // necesitamos validar si los campos no son vacios //
+    
     tipos = [
+        #k    #v
         [101,"Plata"],[102,"Oro"],[103,"Platino"]
     ]
     print("--------------------------------------------")
@@ -232,7 +235,7 @@ while True: #===========> creamos el while del menu y lo mostramos llamando func
 
         if opUsu == 1:  #============> opcion 1 iniciar sesion
             user = input("Ingrese nombre de usuario: ")
-            clave = input("Ingrese password: ")
+            clave = input("Ingrese password: ")         #//hay que hacshear encriptar la clave
             if usuarios.get(user):
                 usuario = usuarios.get(user)
                 if usuario[2] == clave:
