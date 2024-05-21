@@ -5,7 +5,7 @@ idusuario = 0 #=====> Contador idusuario
 
 def menuprincipal(): #===========> FUNCION QUE IMPRIME EL MENU PRINCIPAL
     print("================================")
-    print("   M E N Ú  P R I N C I P A L   ")
+    print("   M E N Ú  P R I N C I P A L   f")
     print("================================")
     print("       1.- (C) INGRESAR         ")
     print("       2.- (R) MOSTRAR          ")
