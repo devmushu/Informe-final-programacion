@@ -239,7 +239,7 @@ while True: #===========> creamos el while del menu y lo mostramos llamando func
                     print(f"Bienvenido {usuario[3]} {usuario[4]} - {usuario[2]} - id: {usuario[0]}.")
                     input("Presiona ENTRAR para ingresar al Menú Principal.")
                     while True:  # Bucle para el Menú Principal
-                        menuprincipal()
+                        menuprincipal()ssss
                         try: #==========================================> agregamos try para evitar la caida del programa
                             op = int(input("INGRESE OPCIÓN: "))
                             if op == 1:
