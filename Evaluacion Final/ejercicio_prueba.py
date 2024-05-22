@@ -11,7 +11,7 @@ def sanitizador(x): #funcion para sanitizar texto
 import hashlib
 import os
 
-def anonimizar_Datos(contraseña, salt=None):
+def hasheo(contraseña, salt=None):
     if salt is None:
         salt = os.urandom(16)  # Genera un salt aleatoria de 16 bytes
     else:
@@ -252,6 +252,8 @@ def ingresoUsuarios():    #==================> FUNCION PARA REGISTRAR EN MENU IN
     print("=======================================")
     username = input( "INGRESE NOMBRE DE USUARIO:  ")
     clave = input( "INGRESE PASSWORD         : ")
+    #======================================================
+    claveHash, salt = hasheo(clave)
     #==============================================================
     nombre = input(   "INGRESE NOMBRE           : ")
     apellidos = input("INGRESE APELLIDOS        : ")
@@ -260,7 +262,7 @@ def ingresoUsuarios():    #==================> FUNCION PARA REGISTRAR EN MENU IN
     global idusuario  #=============> La variable la convierte en globlal para que lo tome el contador de afuera
     idusuario += 1
     codigo = idusuario
-    usuario = [codigo,username,clave,nombre,apellidos,correo]
+    usuario = [codigo,username,clave,claveHash,salt,nombre,apellidos,correo]
     usuarios[username] = usuario
 
 
