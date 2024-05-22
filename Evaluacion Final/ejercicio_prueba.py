@@ -244,8 +244,14 @@ while True: #===========> creamos el while del menu y lo mostramos llamando func
         if opUsu == 1:  #============> opcion 1 iniciar sesion
             user = input("Ingrese nombre de usuario: ")
             clave = input("Ingrese password: ")         #//hay que hacshear encriptar la clave
-            if usuarios.get(user):
-                usuario = usuarios.get(user)
+            clave = "mi secret password"
+            import hashlib
+            def encriptar_clave(clave) :
+                
+                clave_encriptada = encriptar_clave(clave)
+                ("clave encriptada : ", clave_encriptada)
+                if usuarios.get(user):
+                    usuario = usuarios.get(user)
                 if usuario[2] == clave:
                     print(f"Bienvenido {usuario[3]} {usuario[4]} - {usuario[2]} - id: {usuario[0]}.")
                     input("Presiona ENTRAR para ingresar al Menú Principal.")
