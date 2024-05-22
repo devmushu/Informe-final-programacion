@@ -1,3 +1,10 @@
+import re #=========================> importamos libreria para sanitizar entradas
+
+def sanitizador(x): #=====================> funcion para sanitizar texto
+    sano = re.sub(r'[^a-zA-Z0-9\s]', '', x)
+    return sano
+
+
 clientes = {} #====> lista vacia
 usuarios = {}  #====> lista vacia x2
 idcliente = 0 #=====> contador id cliente
@@ -28,12 +35,12 @@ def ingresardatos(): #=========> FUNCION QUE SOLICITA LOS DATOS DEL CLIENTE
     print("=================================")
     print("     INGRESAR DATOS CLIENTE      ")
     print("=================================")
-    run = input("INGRESE RUN : ")
-    nombre=input("INGRESE NOMBRE : ")
-    apellido=input("INGRESE APELLIDO : ")
-    direccion=input("INGRESE DIRECCION : ")
-    fono=input("INGRESE TELEFONO : ")
-    correo=input("INGRESE CORREO : ")
+    run = sanitizador(input("INGRESE RUN : "))  #=============> sanitizar entrada de texto de manera simple
+    nombre=sanitizador(input("INGRESE NOMBRE : ")) #=============> sanitizar entrada de texto
+    apellido=sanitizador(input("INGRESE APELLIDO : "))  #=============> sanitizar entrada de texto 
+    direccion=sanitizador(input("INGRESE DIRECCION : ")) #=============> sanitizar entrada de texto  
+    fono=sanitizador(input("INGRESE TELEFONO : ")) #=============> sanitizar entrada de texto
+    correo=sanitizador(input("INGRESE CORREO : ")) #=============> sanitizar entrada de texto
 #     // necesitamos validar si los campos no son vacios //
     
     tipos = [
