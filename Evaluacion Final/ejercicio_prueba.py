@@ -1,10 +1,37 @@
-import re #=========================> importamos libreria para sanitizar entradas
 
-def sanitizador(x): #=====================> funcion para sanitizar texto
+#==========================================sanitizar textos==============================================================================#
+import re #importamos libreria para sanitizar entradas
+
+def sanitizador(x): #funcion para sanitizar texto
     sano = re.sub(r'[^a-zA-Z0-9\s]', '', x)
-    sano = sano.capitalize().strip() #====> la capitalizamos y eliminas espacios vacios
+    sano = sano.capitalize().strip() # la capitalizamos y eliminas espacios vacios
     return sano
+#==========================================================================================================================================#
+#==========================hasheo password========================================================================================================#
+import hashlib
+import os
 
+def anonimizar_Datos(contraseña, salt=None):
+    if salt is None:
+        salt = os.urandom(16)  # Genera un salt aleatoria de 16 bytes
+    else:
+        salt = salt.encode('utf-8')
+    # Combina la contraseña y la sal antes de hashear
+    contraseñaHash = hashlib.sha256(salt + password.encode('utf-8')).hexdigest()
+    return contraseñaHash, salt.hex()
+
+def verificacion_Pass(password, stored_password_hash, salt):
+    # Recalcula el hash de la contraseña con la misma sal
+    new_password_hash = hashlib.sha256(bytes.fromhex(salt) + password.encode('utf-8')).hexdigest()
+    # Compara el hash calculado con el hash almacenado
+    return new_password_hash == stored_password_hash
+
+
+
+
+
+
+#==============================^trabajo hecho para informe^=========================================================================================================#
 
 clientes = {} #====> lista vacia
 usuarios = {}  #====> lista vacia x2
@@ -36,12 +63,12 @@ def ingresardatos(): #=========> FUNCION QUE SOLICITA LOS DATOS DEL CLIENTE
     print("=================================")
     print("     INGRESAR DATOS CLIENTE      ")
     print("=================================")
-    run = sanitizador(input("INGRESE RUN : "))  #=============> sanitizar entrada de texto de manera simple
-    nombre=sanitizador(input("INGRESE NOMBRE : ")) #=============> sanitizar entrada de texto
-    apellido=sanitizador(input("INGRESE APELLIDO : "))  #=============> sanitizar entrada de texto 
-    direccion=sanitizador(input("INGRESE DIRECCION : ")) #=============> sanitizar entrada de texto  
-    fono=sanitizador(input("INGRESE TELEFONO : ")) #=============> sanitizar entrada de texto
-    correo=sanitizador(input("INGRESE CORREO : ")) #=============> sanitizar entrada de texto
+    run = sanitizador(input("INGRESE RUN : "))  #=============> sanitizar entrada de texto de manera simple °
+    nombre=sanitizador(input("INGRESE NOMBRE : ")) #=============> sanitizar entrada de texto   °
+    apellido=sanitizador(input("INGRESE APELLIDO : "))  #=============> sanitizar entrada de texto  ° 
+    direccion=sanitizador(input("INGRESE DIRECCION : ")) #=============> sanitizar entrada de texto     °
+    fono=sanitizador(input("INGRESE TELEFONO : ")) #=============> sanitizar entrada de texto   °
+    correo=sanitizador(input("INGRESE CORREO : ")) #=============> sanitizar entrada de texto   °
 #     // necesitamos validar si los campos no son vacios //
     print(nombre,apellido)
     tipos = [
@@ -225,6 +252,7 @@ def ingresoUsuarios():    #==================> FUNCION PARA REGISTRAR EN MENU IN
     print("=======================================")
     username = input( "INGRESE NOMBRE DE USUARIO:  ")
     clave = input( "INGRESE PASSWORD         : ")
+    #==============================================================
     nombre = input(   "INGRESE NOMBRE           : ")
     apellidos = input("INGRESE APELLIDOS        : ")
     correo = input(   "INGRESE CORREO           : ")
@@ -244,14 +272,8 @@ while True: #===========> creamos el while del menu y lo mostramos llamando func
         if opUsu == 1:  #============> opcion 1 iniciar sesion
             user = input("Ingrese nombre de usuario: ")
             clave = input("Ingrese password: ")         #//hay que hacshear encriptar la clave
-            clave = "mi secret password"
-            import hashlib
-            def encriptar_clave(clave) :
-                
-                clave_encriptada = encriptar_clave(clave)
-                ("clave encriptada : ", clave_encriptada)
-                if usuarios.get(user):
-                    usuario = usuarios.get(user)
+            if usuarios.get(user):
+                usuario = usuarios.get(user)
                 if usuario[2] == clave:
                     print(f"Bienvenido {usuario[3]} {usuario[4]} - {usuario[2]} - id: {usuario[0]}.")
                     input("Presiona ENTRAR para ingresar al Menú Principal.")
