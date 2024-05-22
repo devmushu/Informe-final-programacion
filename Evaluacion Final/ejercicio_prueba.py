@@ -2,6 +2,7 @@ import re #=========================> importamos libreria para sanitizar entrada
 
 def sanitizador(x): #=====================> funcion para sanitizar texto
     sano = re.sub(r'[^a-zA-Z0-9\s]', '', x)
+    sano = sano.capitalize().strip() #====> la capitalizamos y eliminas espacios vacios
     return sano
 
 
@@ -42,7 +43,7 @@ def ingresardatos(): #=========> FUNCION QUE SOLICITA LOS DATOS DEL CLIENTE
     fono=sanitizador(input("INGRESE TELEFONO : ")) #=============> sanitizar entrada de texto
     correo=sanitizador(input("INGRESE CORREO : ")) #=============> sanitizar entrada de texto
 #     // necesitamos validar si los campos no son vacios //
-    
+    print(nombre,apellido)
     tipos = [
         #k    #v
         [101,"Plata"],[102,"Oro"],[103,"Platino"]
