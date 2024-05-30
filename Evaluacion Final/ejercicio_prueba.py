@@ -101,18 +101,21 @@ def ingresardatos(): #!=========> FUNCION QUE SOLICITA LOS DATOS DEL CLIENTE
 def mostrar():    #?===========> FUNCION PARA LLAMAR TODOS LOS MENUS
     while(True):
         menumostrar()
-        op2 = int(input("  INGRESE OPCIÓN : "))
-        if op2 == 1: #?OPCION 1
-            mostrartodo()
-            input("\n\n PRESIONE ENTER PARA CONTINUAR")
-        elif op2 == 2: #?OPCION 2
-            mostraruno()
-        elif op2 == 3: #?OPCION 3
-            mostrarparcial()
-        if op2 == 4: #?OPCION 4
-            break
-        else:   #?OPCION FUERA DEL RANGO
-            print("Opción Fuera de Rango")
+        try: #______evaluamos errores
+            op2 = int(input("  INGRESE OPCIÓN : "))
+            if op2 == 1: #?OPCION 1
+                mostrartodo()
+                input("\n\n PRESIONE ENTER PARA CONTINUAR")
+            elif op2 == 2: #?OPCION 2
+                mostraruno()
+            elif op2 == 3: #?OPCION 3
+                mostrarparcial()
+            elif op2 == 4: #?OPCION 4
+                break
+            else:   #?OPCION FUERA DEL RANGO
+                print("Opción Fuera de Rango")
+        except:
+            print('Caracter no valido')
 #TODO PENDIENTE
 def mostrartodo():  #?===========> FUNCION PARA MOSTRAR LOS CLIENTES
     print("=================================")
