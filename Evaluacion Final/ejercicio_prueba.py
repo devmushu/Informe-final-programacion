@@ -63,7 +63,7 @@ def menumostrar():  #?==============> FUNCION QUE IMPRIME EL MENU MOSTRAR
     print("       3.- MOSTRAR PARCIAL      ")
     print("       4.- VOLVER               ")
     print("================================")
-#TODO pendiente
+#TODO PENDIENTE
 def ingresardatos(): #!=========> FUNCION QUE SOLICITA LOS DATOS DEL CLIENTE
     print("=================================")
     print("     INGRESAR DATOS CLIENTE      ")
