@@ -3,10 +3,20 @@
 import re #todo importamos libreria para sanitizar entradas
 import hashlib
 import os
+
+def empety_space(text):
+    while not text != '':
+        print('no puede estar vacio')
+    return None
+    
 def sanitizador(x): #funcion para sanitizar texto
-    sano = re.sub(r'[^a-zA-Z0-9\s]', '', x)
-    sano = sano.capitalize().strip() #todo la capitalizamos y eliminas espacios vacios
-    return sano
+    r = empety_space(x)
+    if r is True:
+        sano = re.sub(r'[^a-zA-Z0-9\s]', '', x)
+        sano = sano.capitalize().strip() #todo la capitalizamos y eliminas espacios vacios
+        return sano
+    else:
+        print('Campo vacio, intentelo nuevamente')
 
 def formato_rut(rut):
     template = r'^\d{1,8}-[0-9Kk]$'
@@ -70,7 +80,7 @@ def ingresardatos(): #!=========> FUNCION QUE SOLICITA LOS DATOS DEL CLIENTE
     print("=================================")
     run = input("INGRESE RUN : ") #?=============> VALIDAR FORMATO RUT CON FUNCION FORMATO_RUT °
     r = formato_rut(run)
-    if r is True:  #*por el pico la validacion
+    if r is True:  #*por el pico la validacion            
         nombre=sanitizador(input("INGRESE NOMBRE : ")) #todo=============> sanitizar entrada de texto   °
         apellido=sanitizador(input("INGRESE APELLIDO : "))  #todo=============> sanitizar entrada de texto  ° 
         direccion=sanitizador(input("INGRESE DIRECCION : ")) #todo=============> sanitizar entrada de texto     °
@@ -164,15 +174,23 @@ def mostrarparcial(): #?==================> FUUNCION PARA MOSTRAR CIERTA CANTIDA
         print("-------------------------------------------------------------------------------------------------------------------------------------------------")
     input("\n\n PRESIONE ENTER PARA CONTINUAR")
 #TODO PENDIENTE
+#validacion de entrada de usuario con un try-except
 def modificardatos(): #?==================>FUNCION PARA MODIFICAR AL CLIENTE SELECCIONADO
     listanuevos=[]
     print("===================================")
     print("      MODULO MODIFICAR CLIENTE     ")
     print("===================================")
     mostrartodo()
-    mod = int(input("\n Ingrese valor de ID del Cliente que desea Modificar : "))
-    datos = clientes.get(mod)
+    try :
+            mod = int(input("\n Ingrese valor de ID del Cliente que desea Modificar : "))
+            datos = clientes.get(mod)
     
+    except ValueError :
+        print("error , porfavor ingrese un valor entero para el id de su cliente")
+        
+try :
+    mod = int(input("/n ingrese el id del cliente que desee modificar :  "))
+    datos = clientes.get(mod)
     print(" ID         : {} ".format(datos[0]))
     listanuevos.append(datos[0])
     print(" RUN        : {} ".format(datos[1]))
