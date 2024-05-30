@@ -42,17 +42,18 @@ usuarios = {}  #*====> lista vacia x2
 idcliente = 0 #*=====> contador id cliente
 idusuario = 0 #*=====> Contador idusuario
 
+#*LISTO
 def menuprincipal(): #?===========> FUNCION QUE IMPRIME EL MENU PRINCIPAL
     print("================================")
     print("   M E N Ú  P R I N C I P A L   ")
-    print("================================")
+    print("================================")                                   
     print("       1.- (C) INGRESAR         ")
     print("       2.- (R) MOSTRAR          ")
     print("       3.- (U) MODIFICAR        ")
     print("       4.- (D) ELIMINAR         ")
     print("       5.- (E) Salir            ")
     print("================================")
-
+#*LISTO
 def menumostrar():  #?==============> FUNCION QUE IMPRIME EL MENU MOSTRAR
     print("================================")
     print("     M E N Ú  M O S T R A R     ")
@@ -62,7 +63,7 @@ def menumostrar():  #?==============> FUNCION QUE IMPRIME EL MENU MOSTRAR
     print("       3.- MOSTRAR PARCIAL      ")
     print("       4.- VOLVER               ")
     print("================================")
-
+#TODO pendiente
 def ingresardatos(): #!=========> FUNCION QUE SOLICITA LOS DATOS DEL CLIENTE
     print("=================================")
     print("     INGRESAR DATOS CLIENTE      ")
@@ -95,8 +96,8 @@ def ingresardatos(): #!=========> FUNCION QUE SOLICITA LOS DATOS DEL CLIENTE
             cliente = [codigo,run,nombre,apellido,direccion,fono,correo,tipo,monto,deuda]
             clientes[idcliente]=cliente
     else:
-        print('ERRORRR')
-
+        print('Formato de rut invalido')
+#TODO PENDIENTE
 def mostrar():    #?===========> FUNCION PARA LLAMAR TODOS LOS MENUS
     while(True):
         menumostrar()
@@ -112,7 +113,7 @@ def mostrar():    #?===========> FUNCION PARA LLAMAR TODOS LOS MENUS
             break
         else:   #?OPCION FUERA DEL RANGO
             print("Opción Fuera de Rango")
-
+#TODO PENDIENTE
 def mostrartodo():  #?===========> FUNCION PARA MOSTRAR LOS CLIENTES
     print("=================================")
     print("  MUESTRA DE TODOS LOS CLIENTES  ")
@@ -122,7 +123,7 @@ def mostrartodo():  #?===========> FUNCION PARA MOSTRAR LOS CLIENTES
             " ID : {} - RUN : {} - NOMBRE : {} - APELLIDO : {} - DIRECCION : {} - FONO : {} - CORREO : {} - MONTO CRÉDITO : {} - DEUDA : {} - TIPO : {} ".format(
                 cliente, dato[1], dato[2], dato[3], dato[4], dato[5], dato[6] , dato[8], dato[9], dato[7]))
         print("-------------------------------------------------------------------------------------------------------------------------------------------------")
-
+#TODO PENDIENTE
 def mostraruno(): #?==================> FUNCION PARA MOSTRAR UN DATO DE UN USUARIO
     print("=================================")
     print("   MUESTRA DE DATOS PARTICULAR   ")
@@ -145,7 +146,7 @@ def mostraruno(): #?==================> FUNCION PARA MOSTRAR UN DATO DE UN USUAR
     print(" DEUDA         : {} ".format(datos[8]))
     print("-----------------------------------------")
     input("\n\n PRESIONE ENTER PARA CONTINUAR")
-
+#TODO PENDIENTE
 def mostrarparcial(): #?==================> FUUNCION PARA MOSTRAR CIERTA CANTIDAD DE DATOS
     print("=======================================")
     print("   MUESTRA PARCIALMENTE LOS CLIENTES   ")
@@ -159,7 +160,7 @@ def mostrarparcial(): #?==================> FUUNCION PARA MOSTRAR CIERTA CANTIDA
                 cliente, dato[1], dato[2], dato[3], dato[4], dato[5], dato[6] , dato[9], dato[7], dato[8]))
         print("-------------------------------------------------------------------------------------------------------------------------------------------------")
     input("\n\n PRESIONE ENTER PARA CONTINUAR")
-
+#TODO PENDIENTE
 def modificardatos(): #?==================>FUNCION PARA MODIFICAR AL CLIENTE SELECCIONADO
     listanuevos=[]
     print("===================================")
@@ -234,7 +235,7 @@ def modificardatos(): #?==================>FUNCION PARA MODIFICAR AL CLIENTE SEL
     
     clientes[mod]=listanuevos
 
-
+#TODO PENDIENTE
 def eliminardatos():  #?===============> FUNCION PARA ELIMINAR UN CLIENTE
     print("===================================")
     print("      MODULO ELIMINAR CLIENTE      ")
@@ -244,7 +245,7 @@ def eliminardatos():  #?===============> FUNCION PARA ELIMINAR UN CLIENTE
     del clientes[elim]
 
 #! --------------------------------------
-
+#* LISTO
 def menuUsuarios():    #?==================> FUNCION PARA MOSTRAR MENU INICIO DE SESION
     print("================================")
     print("   M E N Ú  U S U A R I O S     ")
@@ -253,7 +254,7 @@ def menuUsuarios():    #?==================> FUNCION PARA MOSTRAR MENU INICIO DE
     print("       2.-  REGISTRAR USUARIO   ")
     print("       3.-  Salir               ")
     print("================================")
-
+#TODO PENDIENTE
 def ingresoUsuarios():    #?==================> FUNCION PARA REGISTRAR EN MENU INICIAR SESION
     print("=======================================")
     print("        INGRESO DE USUARIO             ")
@@ -273,7 +274,7 @@ def ingresoUsuarios():    #?==================> FUNCION PARA REGISTRAR EN MENU I
     usuario = [codigo,username,claveHash,salt,nombre,apellidos,correo]
     usuarios[username] = usuario
 
-
+#TODO PENDIENTE
 while True: #?===========> creamos el while del menu y lo mostramos llamando funciones
     menuUsuarios()
     try:
