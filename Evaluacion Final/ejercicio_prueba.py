@@ -68,7 +68,7 @@ def ingresardatos(): #!=========> FUNCION QUE SOLICITA LOS DATOS DEL CLIENTE
     print("=================================")
     print("     INGRESAR DATOS CLIENTE      ")
     print("=================================")
-    run = input("INGRESE RUN : ")#todo=============> sanitizar entrada de texto de manera simple °
+    run = input("INGRESE RUN : ") #?=============> VALIDAR FORMATO RUT CON FUNCION FORMATO_RUT °
     r = formato_rut(run)
     if r is True:  #*por el pico la validacion
         nombre=sanitizador(input("INGRESE NOMBRE : ")) #todo=============> sanitizar entrada de texto   °
