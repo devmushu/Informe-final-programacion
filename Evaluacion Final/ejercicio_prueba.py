@@ -1,16 +1,19 @@
 
 #?==========================================sanitizar textos==============================================================================#
 import re #todo importamos libreria para sanitizar entradas
-
+import hashlib
+import os
 def sanitizador(x): #funcion para sanitizar texto
     sano = re.sub(r'[^a-zA-Z0-9\s]', '', x)
     sano = sano.capitalize().strip() #todo la capitalizamos y eliminas espacios vacios
     return sano
+
+def formato_rut(rut):
+    template = r'^\d{1,8}-[0-9Kk]$'
+    return re.match(template, rut) is not None
+    
 #?==========================================================================================================================================#
 #?==========================hasheo password========================================================================================================#
-import hashlib
-import os
-
 def hasheo(contraseña, salt=None):
     if salt is None:
         salt = os.urandom(16)  #todo Genera un salt aleatoria de 16 bytes
@@ -60,36 +63,39 @@ def menumostrar():  #?==============> FUNCION QUE IMPRIME EL MENU MOSTRAR
     print("       4.- VOLVER               ")
     print("================================")
 
-def ingresardatos(): #?=========> FUNCION QUE SOLICITA LOS DATOS DEL CLIENTE
+def ingresardatos(): #!=========> FUNCION QUE SOLICITA LOS DATOS DEL CLIENTE
     print("=================================")
     print("     INGRESAR DATOS CLIENTE      ")
     print("=================================")
-    run = sanitizador(input("INGRESE RUN : "))  #todo=============> sanitizar entrada de texto de manera simple °
-    nombre=sanitizador(input("INGRESE NOMBRE : ")) #todo=============> sanitizar entrada de texto   °
-    apellido=sanitizador(input("INGRESE APELLIDO : "))  #todo=============> sanitizar entrada de texto  ° 
-    direccion=sanitizador(input("INGRESE DIRECCION : ")) #todo=============> sanitizar entrada de texto     °
-    fono=sanitizador(input("INGRESE TELEFONO : ")) #todo=============> sanitizar entrada de texto   °
-    correo=sanitizador(input("INGRESE CORREO : ")) #todo=============> sanitizar entrada de texto   °
-    #!necesitamos validar si los campos no son vacios //
-
-    print(nombre,apellido)
-    tipos = [
-        #k    #v
-        [101,"Plata"],[102,"Oro"],[103,"Platino"]
-    ]
-    print("--------------------------------------------")
-    for tipo in tipos:
-        print(
-            " CODIGO : {} - {}.".format(tipo[0], tipo[1]))
-    print("--------------------------------------------")
-    tipo = input("Ingrese el codigo del Tipo de Cliente: ")
-    monto=input("INGRESE MONTO CREDITO : ")
-    global idcliente    
-    idcliente += 1
-    codigo = idcliente
-    deuda = 0
-    cliente = [codigo,run,nombre,apellido,direccion,fono,correo,tipo,monto,deuda]
-    clientes[idcliente]=cliente
+    run = input("INGRESE RUN : ")#todo=============> sanitizar entrada de texto de manera simple °
+    r = formato_rut(run)
+    if r is True:  #*por el pico la validacion
+        nombre=sanitizador(input("INGRESE NOMBRE : ")) #todo=============> sanitizar entrada de texto   °
+        apellido=sanitizador(input("INGRESE APELLIDO : "))  #todo=============> sanitizar entrada de texto  ° 
+        direccion=sanitizador(input("INGRESE DIRECCION : ")) #todo=============> sanitizar entrada de texto     °
+        fono=sanitizador(input("INGRESE TELEFONO : ")) #todo=============> sanitizar entrada de texto   °
+        correo=sanitizador(input("INGRESE CORREO : ")) #todo=============> sanitizar entrada de texto   °
+        #!necesitamos validar si los campos no son vacios //
+        
+        print(nombre,apellido)
+        tipos = [
+                #k    #v
+                [101,"Plata"],[102,"Oro"],[103,"Platino"]
+            ]
+        print("--------------------------------------------")
+        for tipo in tipos:
+            print(" CODIGO : {} - {}.".format(tipo[0], tipo[1]))
+            print("--------------------------------------------")
+            tipo = input("Ingrese el codigo del Tipo de Cliente: ")
+            monto=input("INGRESE MONTO CREDITO : ")
+            global idcliente    
+            idcliente += 1
+            codigo = idcliente
+            deuda = 0
+            cliente = [codigo,run,nombre,apellido,direccion,fono,correo,tipo,monto,deuda]
+            clientes[idcliente]=cliente
+    else:
+        print('ERRORRR')
 
 def mostrar():    #?===========> FUNCION PARA LLAMAR TODOS LOS MENUS
     while(True):
@@ -272,13 +278,13 @@ while True: #?===========> creamos el while del menu y lo mostramos llamando fun
     menuUsuarios()
     try:
         opUsu = int(input("INGRESE OPCIÓN: "))  #todo=========> Seleccion de opcion
-
         if opUsu == 1:  #?============> opcion 1 iniciar sesion 
             user = input("Ingrese nombre de usuario: ")
-            clave = input("Ingrese password: ")        #todo hay que hacshear encriptar la clave
+            clave = input("Ingrese password: ") #todo hay que hacshear encriptar la clave
             if usuarios.get(user):
                 usuario = usuarios.get(user)
-                if verificacion_Pass(clave, usuario[2],usuario[3]): #todo==============>inicio de sesion con verificacion de Contraseña encriptada 
+                r = verificacion_Pass(clave, usuario[2],usuario[3]) #*agregue esto
+                if r == True: #todo==============>inicio de sesion con verificacion de Contraseña encriptada 
                     print(f"Bienvenido {usuario[4]} {usuario[5]} - {anonimacion_data(clave)} - id: {usuario[0]}.") #todo=====> anonimizo datos aunque quitaria la linea de codigo
                     input("Presiona ENTRAR para ingresar al Menú Principal.")
                     while True:  #? Bucle para el Menú Principal
@@ -297,13 +303,13 @@ while True: #?===========> creamos el while del menu y lo mostramos llamando fun
                                     opSalir = input("¿DESEA SALIR [SI/NO]: ")
                                     if opSalir.lower() == "si":
                                         break  #? Salir del bucle del Menú Principal
+                                else:
+                                    print("Opción Fuera de Rango")
                             except:
                                 print('ERROR')
-                            else:
-                                print("Opción Fuera de Rango")
                     break  #? Salir del bucle del Menú de Usuarios
                 else:
-                        input("Contraseña incorrecta. Presiona ENTER para volver al Menú de Usuarios.")
+                    input("Contraseña incorrecta. Presiona ENTER para volver al Menú de Usuarios.")
             else:
                     input("Usuario no registrado. Presiona ENTER para volver al Menú de Usuarios.")
         elif opUsu == 2: #?=================> opcion crear usuario
@@ -311,9 +317,9 @@ while True: #?===========> creamos el while del menu y lo mostramos llamando fun
         elif opUsu == 3: #?================> opcion salir
             opSalir = input("¿DESEA SALIR [SI/NO]: ")
             if opSalir.lower() == "si":
-                break
+                break 
         else: #?====================> seleccion fuera de rango
-             print("Opción Fuera de Rango")
+            print("Opción Fuera de Rango")
     except:
-        print('Valor no valido')
+        print('rorr')
 
