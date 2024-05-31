@@ -7,7 +7,7 @@ def sanitizador_num(x): #funcion para sanitizar texto
         if x == '':
             return None
         else:
-            sano = re.sub(r'[^a-zA-Z0-9\s]', '', x)
+            sano = re.sub(r'[^0-9\s]', '', x)
             sano = sano.capitalize().strip() #todo la capitalizamos y eliminas espacios vacios
             return sano
         
@@ -15,7 +15,7 @@ def sanitizador(x): #funcion para sanitizar texto
         if x == '':
             return None
         else:
-            sano = re.sub(r'[^a-zA-Z0-9\s]', '', x)
+            sano = re.sub(r'[^a-zA-Z\s]', '', x)
             sano = sano.capitalize().strip() #todo la capitalizamos y eliminas espacios vacios
             return sano
 
