@@ -7,17 +7,20 @@ def sanitizador_num(x): #funcion para sanitizar texto
         if x == '':
             return None
         else:
-            sano = re.sub(r'[^0-9\s]', '', x)
-            sano = sano.capitalize().strip() #todo la capitalizamos y eliminas espacios vacios
+            sano = re.sub( r'^[0-9]$') #eliminas espacios vacios
             return sano
         
 def sanitizador(x): #funcion para sanitizar texto
         if x == '':
-            return None
+            return None #todo si el campo esta vacio devuelve no
         else:
             sano = re.sub(r'[^a-zA-Z\s]', '', x)
             sano = sano.capitalize().strip() #todo la capitalizamos y eliminas espacios vacios
             return sano
+
+def formato_correo(correo):
+    template = r'^[^a-zA-Z]@[^a-zA-Z].[^a-zA-Z]$'
+    return re.match(template, correo) is not None
 
 def formato_rut(rut):
     template = r'^\d{1,8}-[0-9Kk]$'
@@ -81,12 +84,12 @@ def ingresardatos(): #!=========> FUNCION QUE SOLICITA LOS DATOS DEL CLIENTE
     print("=================================")
     while True:
         run = input("INGRESE RUN : ") #?=============> VALIDAR FORMATO RUT CON FUNCION FORMATO_RUT °
-        r = formato_rut(run)
+        r = formato_correo(run)
         if r is True:  #*por el pico la validacion            
             nombre=sanitizador(input("INGRESE NOMBRE : ")) #todo=============> sanitizar entrada de texto   °
             apellido=sanitizador(input("INGRESE APELLIDO : "))  #todo=============> sanitizar entrada de texto  ° 
             direccion=sanitizador(input("INGRESE DIRECCION : ")) #todo=============> sanitizar entrada de texto     °
-            fono=sanitizador(input("INGRESE TELEFONO : ")) #todo=============> sanitizar entrada de texto   °
+            fono=sanitizador_num(int(input("INGRESE TELEFONO : ")))#todo=============> sanitizar entrada de texto   °
             correo=sanitizador(input("INGRESE CORREO : ")) #todo=============> sanitizar entrada de texto   °
             #!necesitamos validar si los campos no son vacios //
             
@@ -103,7 +106,7 @@ def ingresardatos(): #!=========> FUNCION QUE SOLICITA LOS DATOS DEL CLIENTE
                 try:
                     tipo = sanitizador_num(int(input("Ingrese el codigo del Tipo de Cliente: ")))
                     if tipo in [101, 102, 103]:
-                        monto = int(input("INGRESE MONTO CREDITO : "))
+                        monto = sanitizador_num(int(input("INGRESE MONTO CREDITO : ")))
                         if monto >= 0:
                             global idcliente    
                             idcliente += 1
@@ -126,7 +129,7 @@ def mostrar():    #?===========> FUNCION PARA LLAMAR TODOS LOS MENUS
     while(True):
         menumostrar()
         try: #______evaluamos errores
-            op2 = int(input("  INGRESE OPCIÓN : "))
+            op2 = sanitizador(int(input("  INGRESE OPCIÓN : ")))
             if op2 == 1: #?OPCION 1
                 mostrartodo()
                 input("\n\n PRESIONE ENTER PARA CONTINUAR")
@@ -178,7 +181,7 @@ def mostrarparcial(): #?==================> FUUNCION PARA MOSTRAR CIERTA CANTIDA
     print("=======================================")
     print("   MUESTRA PARCIALMENTE LOS CLIENTES   ")
     print("=======================================")
-    cant = int(input("\nIngrese la Cantidad de Clientes a Mostrar : "))
+    cant = sanitizador_num(int(input("\nIngrese la Cantidad de Clientes a Mostrar : ")))
     
     datos = list(clientes.items())[:cant]
     for cliente,dato in datos:
@@ -186,7 +189,7 @@ def mostrarparcial(): #?==================> FUUNCION PARA MOSTRAR CIERTA CANTIDA
             " ID : {} - RUN : {} - NOMBRE : {} - APELLIDO : {} - DIRECCION : {} - FONO : {} - CORREO : {} - MONTO CRÉDITO : {} - DEUDA : {} - TIPO : {} ".format(
                 cliente, dato[1], dato[2], dato[3], dato[4], dato[5], dato[6] , dato[9], dato[7], dato[8]))
         print("-------------------------------------------------------------------------------------------------------------------------------------------------")
-    input("\n\n PRESIONE ENTER PARA CONTINUAR")
+    sanitizador(input("\n\n PRESIONE ENTER PARA CONTINUAR"))
 #TODO PENDIENTE
 #validacion de entrada de usuario con un try-except
 def modificardatos(): #?==================>FUNCION PARA MODIFICAR AL CLIENTE SELECCIONADO
@@ -196,63 +199,63 @@ def modificardatos(): #?==================>FUNCION PARA MODIFICAR AL CLIENTE SEL
     print("===================================")
     mostrartodo()
     try :
-            mod = int(input("\n Ingrese valor de ID del Cliente que desea Modificar : "))
+            mod = sanitizador_num(int(input("\n Ingrese valor de ID del Cliente que desea Modificar : ")))
             datos = clientes.get(mod)
     
     except ValueError :
         print("error , porfavor ingrese un valor entero para el id de su cliente")
         
     try :
-        mod = int(input("/n ingrese el id del cliente que desee modificar :  "))
+        mod = sanitizador_num(int(input("/n ingrese el id del cliente que desee modificar :  ")))
         datos = clientes.get(mod)
         print(" ID         : {} ".format(datos[0]))
         listanuevos.append(datos[0])
         print(" RUN        : {} ".format(datos[1]))
         listanuevos.append(datos[1])
 
-        opm=input("DESEA MODIFICAR EL NOMBRE : {} - [SI/NO] ".format(datos[2]))
+        opm=sanitizador(input("DESEA MODIFICAR EL NOMBRE : {} - [SI/NO] ".format(datos[2])))
         if opm.lower() == "si":
             nombrenuevo=input("INGRESE NOMBRE : ")
             listanuevos.append(nombrenuevo)
         else:
             listanuevos.append(datos[2])
-        opm = input("DESEA MODIFICAR EL APELLIDO : {} - [SI/NO] ".format(datos[3]))
+        opm = sanitizador(input("DESEA MODIFICAR EL APELLIDO : {} - [SI/NO] ".format(datos[3])))
         if opm.lower() == "si":
             apellidonuevo= input("INGRESE APELLIDO : ")
             listanuevos.append(apellidonuevo)
         else:
             listanuevos.append(datos[3])
-        opm = input("DESEA MODIFICAR LA DIRECCION : {} - [SI/NO] ".format(datos[4]))
+        opm = sanitizador(input("DESEA MODIFICAR LA DIRECCION : {} - [SI/NO] ".format(datos[4])))
         if opm.lower() == "si":
             direcnueva = input("INGRESE DIRECCION : ")
             listanuevos.append(direcnueva)
         else:
             listanuevos.append(datos[4])
-        opm = input("DESEA MODIFICAR EL TELEFONO : {} - [SI/NO] ".format(datos[5]))
+        opm = sanitizador_num(input("DESEA MODIFICAR EL TELEFONO : {} - [SI/NO] ".format(datos[5])))
         if opm.lower() == "si":
             fononuevo= input("INGRESE TELEFONO : ")
             listanuevos.append(fononuevo)
         else:
             listanuevos.append(datos[5])
-        opm = input("DESEA MODIFICAR EL CORREO : {} - [SI/NO] ".format(datos[6]))
+        opm = sanitizador(input("DESEA MODIFICAR EL CORREO : {} - [SI/NO] ".format(datos[6])))
         if opm.lower() == "si":
             correonuevo = input("INGRESE EL CORREO : ")
             listanuevos.append(correonuevo)
         else:
             listanuevos.append(datos[6])
-        opm = input("DESEA MODIFICAR LA DEUDA : {} - [SI/NO] ".format(datos[9]))
+        opm = sanitizador(input("DESEA MODIFICAR LA DEUDA : {} - [SI/NO] ".format(datos[9])))
         if opm.lower() == "si":
-            deudanuevo= input("INGRESE DEUDA : ")
+            deudanuevo= sanitizador_num(int(input("INGRESE DEUDA : ")))
             listanuevos.append(deudanuevo)
         else:
             listanuevos.append(datos[9])
-        opm = input("DESEA MODIFICAR EL MONTO DE CREDITO : {} - [SI/NO] ".format(datos[8]))
+        opm = sanitizador(input("DESEA MODIFICAR EL MONTO DE CREDITO : {} - [SI/NO] ".format(datos[8])))
         if opm.lower() == "si":
-            montonuevo= input("INGRESE MONTO DE CREDITO : ")
+            montonuevo= sanitizador_num(int(input("INGRESE MONTO DE CREDITO : ")))
             listanuevos.append(montonuevo)
         else:
             listanuevos.append(datos[8])
-        opm = input("DESEA MODIFICAR EL TIPO : {} - [SI/NO] ".format(datos[7]))
+        opm = sanitizador(input("DESEA MODIFICAR EL TIPO : {} - [SI/NO] ".format(datos[7])))
         if opm.lower() == "si":
             tipos = [
                 [101,"Plata"],[102,"Oro"],[103,"Platino"]
@@ -263,7 +266,7 @@ def modificardatos(): #?==================>FUNCION PARA MODIFICAR AL CLIENTE SEL
                     " CODIGO : {} - {}.".format(tipo[0], tipo[1]))
             print("--------------------------------------------")
             
-            tiponuevo = input("INGRESE EL TIPO : ")
+            tiponuevo = sanitizador_num(int(input("INGRESE EL TIPO : ")))
             listanuevos.append(tiponuevo)
         else:
             listanuevos.append(datos[7])
@@ -335,16 +338,16 @@ def ingresoUsuarios():    #?==================> FUNCION PARA REGISTRAR EN MENU I
 while True: #?===========> creamos el while del menu y lo mostramos llamando funciones
     menuUsuarios()
     try:
-        opUsu = int(input("INGRESE OPCIÓN: "))  #todo=========> Seleccion de opcion
+        opUsu = int(input("INGRESE OPCIÓN: ")) #todo=========> Seleccion de opcion
         if opUsu == 1:  #?============> opcion 1 iniciar sesion 
-            user = input("Ingrese nombre de usuario: ")
-            clave = input("Ingrese password: ") #todo hay que hacshear encriptar la clave
+            user = sanitizador(input("Ingrese nombre de usuario: "))
+            clave = sanitizador(input("Ingrese password: ")) #todo hay que hacshear encriptar la clave
             if usuarios.get(user):
                 usuario = usuarios.get(user)
                 r = verificacion_Pass(clave, usuario[2],usuario[3]) #*agregue esto
                 if r == True: #todo==============>inicio de sesion con verificacion de Contraseña encriptada 
                     print(f"Bienvenido {usuario[4]} {usuario[5]} - {anonimacion_data(clave)} - id: {usuario[0]}.") #todo=====> anonimizo datos aunque quitaria la linea de codigo
-                    input("Presiona ENTRAR para ingresar al Menú Principal.")
+                    sanitizador(input("Presiona ENTRAR para ingresar al Menú Principal."))
                     while True:  #? Bucle para el Menú Principal
                             menuprincipal()
                             try: #todo==========================================> agregamos try para evitar la caida del programa
@@ -358,7 +361,7 @@ while True: #?===========> creamos el while del menu y lo mostramos llamando fun
                                 elif op == 4:
                                     eliminardatos()
                                 elif op == 5:
-                                    opSalir = input("¿DESEA SALIR [SI/NO]: ")
+                                    opSalir = sanitizador(input("¿DESEA SALIR [SI/NO]: "))
                                     if opSalir.lower() == "si":
                                         break  #? Salir del bucle del Menú Principal
                                 else:
@@ -367,13 +370,13 @@ while True: #?===========> creamos el while del menu y lo mostramos llamando fun
                                 print('ERROR')
                     break  #? Salir del bucle del Menú de Usuarios
                 else:
-                    input("Contraseña incorrecta. Presiona ENTER para volver al Menú de Usuarios.")
+                    sanitizador(input("Contraseña incorrecta. Presiona ENTER para volver al Menú de Usuarios."))
             else:
-                    input("Usuario no registrado. Presiona ENTER para volver al Menú de Usuarios.")
+                    sanitizador(input("Usuario no registrado. Presiona ENTER para volver al Menú de Usuarios."))
         elif opUsu == 2: #?=================> opcion crear usuario
             ingresoUsuarios()
         elif opUsu == 3: #?================> opcion salir
-            opSalir = input("¿DESEA SALIR [SI/NO]: ")
+            opSalir = sanitizador(input("¿DESEA SALIR [SI/NO]: "))
             if opSalir.lower() == "si":
                 break 
         else: #?====================> seleccion fuera de rango
